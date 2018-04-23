@@ -1,0 +1,2 @@
+assignGlobals();
+drawChords(chords);
