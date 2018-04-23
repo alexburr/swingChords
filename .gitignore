@@ -61,4 +61,4 @@ typings/
 public/js/
 
 # Output of LESS transpiler
-public/css
+public/css/
