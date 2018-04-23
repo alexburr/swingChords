@@ -1,1 +1,1 @@
-var body, boxTemplate, box, noteTemplate;
+var body, itemTemplate, item, noteTemplate;

@@ -1,93 +1,119 @@
+/* Vars */
+@colorBlack: black;
+@colorWhite: white;
+@borderDotted: 1px dotted @colorBlack;
+@borderSolid: 1px solid @colorBlack;
+@fontDefault: "Arial";
+@fontAlt: "Times New Roman";
+
+/* Mixins */
+.strokeLine(@width: 2pt) { 
+    stroke: @colorBlack; 
+    stroke-width: @width; 
+}
+.fill(@color: none) {
+    fill: @color;
+}
+
+/* Element Selectors */
 html { 
+    background: @colorWhite;
+    color: @colorBlack;
     margin: 0;
     padding: 0;
 }
 body {
-    font-family: "Arial";
-    font-size: 10px; /* Set at 10px Change w/ media queries */
+    font-family: @fontDefault;
+    font-size: 9px;
     margin: 0;
     padding: 1em;
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+		font-size: 12px;
+	}
 }
 
-.box {
-    /*outline: 1px dotted gray;*/
+h1 {
+    border-bottom: @borderSolid;
+    border-top: @borderSolid;
+    float: none;
+    font-size: 18pt;
+    clear: both;
+    line-height: 3;
+    margin: 1em;
+    padding: 0;
+}
+
+/* Class Selectors */
+.item {
     float: left;
     margin: 1em; 
     padding: 0 2em 2em 2em;
     width: 25em; 
+
+    h2 { 
+        font-size: 24pt;
+        font-family: @fontAlt;
+        margin: 0 0 .5em 0; 
+        line-height: 1; 
+        text-align: center;
+    }
 }
 
 .gridWrap { 
-    /*border-top: 8pt solid black;*/
     overflow: visible;
     position: relative;
     height: 25em;
     width: 25em;
 }
 
-.gridBox, .grid {
+.gridBox, 
+.grid {
     width: 100%;
     height: 100%;
-    fill: none;
-    stroke: black; 
-    stroke-width: 4pt; 
+    .fill();
+    .strokeLine(4pt);
 }
+
 .gridLine { 
     width: 20%;
     height: 20%;
-    fill: none;
-    stroke: black; 
-    stroke-width: 2pt; 
-}
-.box h2 { 
-    font-size: 24pt;
-    font-family: "Times New Roman";
-    margin: 0 0 .5em 0; 
-    line-height: 1; 
-    text-align: center;
+    .fill();
+    .strokeLine();
 }
 
 .dotBox {
     width: 4em;
     height: 4em;
     position: absolute;
-}		
 
-.dotBox.fret1 { top: .5em; }
-.dotBox.fret2 { top: 5.5em; }
-.dotBox.fret3 { top: 10.5em; }
-.dotBox.fret4 { top: 15.5em; }
-.dotBox.fret5 { top: 20.5em; }
+    > .dot {
+        .fill(@colorBlack);
+        stroke: none;
+    }
 
-.dotBox.string1 { left: 22.75em; }
-.dotBox.string2 { left: 18em; }
-.dotBox.string3 { left: 13em; }
-.dotBox.string4 { left: 8em; }
-.dotBox.string5 { left: 3em; }
-.dotBox.string6 { left: -2em; }
+    > text {
+        font-size: 2.25em;
+        .fill(@colorWhite);
+    }
 
-.dotBox > .dot {
-    fill: black;
-    stroke: none;
-}
-.dotBox.root {
-    background: black; 
-}
-
-.dotBox > text {
-    font-size: 2.25em;
-    fill: white;
-}
-.dotBox.root > text { 
-    font-weight: bold; 
-    font-size: 2.75em; 
-}
-
-hr { 
-    border: none;
-    border-top: 1px dotted black;
-    height: 0;
-    float: none; 
-    clear: both; 
-    margin: 0;
+    &.fret1 { top: .5em; }
+    &.fret2 { top: 5.5em; }
+    &.fret3 { top: 10.5em; }
+    &.fret4 { top: 15.5em; }
+    &.fret5 { top: 20.5em; }
+    &.string1 { left: 22.75em; }
+    &.string2 { left: 18em; }
+    &.string3 { left: 13em; }
+    &.string4 { left: 8em; }
+    &.string5 { left: 3em; }
+    &.string6 { left: -2em; }
+    
+    &.root {
+        background: @colorBlack; 
+        > text { 
+            font-weight: bold; 
+            font-size: 2.75em; 
+        }
+    }
 }
