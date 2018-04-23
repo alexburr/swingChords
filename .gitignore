@@ -59,3 +59,6 @@ typings/
 
 # Output of Typescript compiler
 public/js/
+
+# Output of LESS transpiler
+public/css
