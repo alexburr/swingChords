@@ -4,7 +4,15 @@ function assignGlobals() {
     noteTemplate = document.querySelector("#noteTemplate");
 }
 
-function drawNote(box, noteObject) {
+function drawHeader(text: string) {
+    var header: HTMLHeadingElement = document.createElement("h1");
+    var headerText: Text = document.createTextNode(text); 
+    header.appendChild(headerText);
+    body.appendChild(header);
+    drawBreak();
+}
+
+function drawNote(box: any, noteObject: Note) {
     var note, dotBox, dotText;
     
     note = document.importNode(noteTemplate.content, true);
@@ -21,7 +29,7 @@ function drawNote(box, noteObject) {
     box.querySelector(".gridWrap").appendChild(dotBox);
 }
 
-function drawChord(chord) {
+function drawChord(chord: Chord) {
     var box, grid;
     
     box = document.importNode(boxTemplate.content, true);
@@ -40,8 +48,13 @@ function drawBreak() {
     body.appendChild(document.createElement("hr"));
 }
 
-function drawChords(chordsArray) {
+function drawChords(chordsArray: Chord[]) {
     for (var i = 0; i < chordsArray.length; i++) {
         drawChord(chordsArray[i]);
     }
+}
+
+function drawChordGroup(chordGroup: ChordGroup) {
+    drawHeader(chordGroup.name);
+    drawChords(chordGroup.chords);
 }
