@@ -1,4 +1,15 @@
-var chords = [
+class Chord { 
+    name: string;
+    notes: Note[]
+}
+
+class Note {
+    string: number;
+    fret: number;
+    interval: string;
+}
+
+var chords: Chord[] = [
     {
         name: "maj6", 
         notes: [
