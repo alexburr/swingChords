@@ -45,13 +45,12 @@
 				<text x="50%" y="52%" text-anchor="middle" dy=".3em"></text>
 			</svg>
 		</template>
-		<script src="public/js/globals.js"></script>
-		<script src="public/js/functions.js"></script>
+		<script src="public/js/swingChords.js"></script>
 		<script src="public/js/chords.js"></script>
 		<script>
-			assignGlobals();
-			drawChordGroup(chords5thString);
-			drawChordGroup(chords6thString);
+			var app = new swingChords.app();
+			app.drawChordGroup(chords5thString);
+			app.drawChordGroup(chords6thString);
 		</script>
 	</body>
 </html>

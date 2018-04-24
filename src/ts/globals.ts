@@ -1,1 +1,0 @@
-var body, itemTemplate, item, noteTemplate;
