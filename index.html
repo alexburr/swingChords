@@ -4,53 +4,14 @@
 		<link rel="stylesheet" href="public/css/styles.css" />
 	</head>
 	<body>
-		<template id="gridTemplate">
-			<rect class="grid" x="0" y="0" />
-		</template>
 		<template id="itemTemplate">
 			<div class="item">
 				<h3></h3>
-				<div class="gridWrap">
-					<svg class="gridBox" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-						<rect class="grid" x="0" y="0" />
-						<rect class="gridLine" x="0" y="0" />
-						<rect class="gridLine" x="0" y="20%" />
-						<rect class="gridLine" x="0" y="40%" />
-						<rect class="gridLine" x="0" y="60%" />
-						<rect class="gridLine" x="0" y="80%" />
-						<rect class="gridLine" x="20%" y="0" />
-						<rect class="gridLine" x="20%" y="20%" />
-						<rect class="gridLine" x="20%" y="40%" />
-						<rect class="gridLine" x="20%" y="60%" />
-						<rect class="gridLine" x="20%" y="80%" />
-						<rect class="gridLine" x="40%" y="0" />
-						<rect class="gridLine" x="40%" y="20%" />
-						<rect class="gridLine" x="40%" y="40%" />
-						<rect class="gridLine" x="40%" y="60%" />
-						<rect class="gridLine" x="40%" y="80%" />
-						<rect class="gridLine" x="60%" y="0" />
-						<rect class="gridLine" x="60%" y="20%" />
-						<rect class="gridLine" x="60%" y="40%" />
-						<rect class="gridLine" x="60%" y="60%" />
-						<rect class="gridLine" x="60%" y="80%" />
-						<rect class="gridLine" x="80%" y="0" />
-						<rect class="gridLine" x="80%" y="20%" />
-						<rect class="gridLine" x="80%" y="40%" />
-						<rect class="gridLine" x="80%" y="60%" />
-						<rect class="gridLine" x="80%" y="80%" /> 
-					</svg>
-				</div>
+				<div class="gridWrap"></div>
 			</div>
-		</template>
-		<template id="noteTemplate">
-			<svg class="dotBox" xmlns="http://www.w3.org/2000/svg">
-				<circle class="dot" cx="50%" cy="50%" r="50%" />
-				<text x="50%" y="52%" text-anchor="middle" dy=".3em"></text>
-			</svg>
 		</template>
 		<h1>Swing Chord Voicings</h1>
 		<script src="public/js/swingChords.js"></script>
-		<script src="public/js/templates.js"></script>
 		<script src="public/js/chords.js"></script>
 		<script>
 			var app = new swingChords.app();
