@@ -1,7 +1,12 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "sourceMap": true,
-        "outDir": "public/js"
-    }
+        "module": "amd",
+        "target": "es6",
+        "sourceMap": false,
+        "outFile": "public/js/app.js"
+    },
+    "include": [
+      "src/ts/**/*.ts"
+    ],
+    "compileOnSave": false
 }

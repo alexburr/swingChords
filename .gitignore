@@ -58,7 +58,7 @@ typings/
 .env
 
 # Output of Typescript compiler
-public/js/
+public/js/app.js
 
 # Output of LESS transpiler
 public/css/
