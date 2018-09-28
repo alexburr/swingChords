@@ -1,16 +1,17 @@
-import SvgGenerator from './SvgGenerator';
+import SvgGenerator from './Implementations/SvgGenerator';
 import Chord from './Models/Chord';
 import ChordGroup from './Models/ChordGroup';
-import { allChordData } from './allChordData';
+import { allChords } from './Data/allChords';
+import ISwingChordsApp from './Interfaces/ISwingChordsApp';
 
-export class SwingChordsApp {
+export class SwingChordsApp implements ISwingChordsApp {
     body: HTMLBodyElement = document.querySelector("body");;
     itemTemplate: any = document.querySelector("#itemTemplate");;
     svgGenerator: SvgGenerator = new SvgGenerator();
 
     // Construction ------------------------------------------------
     constructor() {
-        this.drawChordGroups(allChordData);
+        this.drawChordGroups(allChords);
     }
 
     // Public methods ----------------------------------------------
@@ -40,8 +41,13 @@ export class SwingChordsApp {
         gridWrap = item.querySelector(".gridWrap");
         gridWrap.appendChild(gridBox);
         
+        if (chord.root !== null) {
+            var root = this.svgGenerator.note(chord.root, true);
+            gridWrap.appendChild(root);
+        }        
+
         for (var i = 0; i < chord.notes.length; i++) {
-            var note = this.svgGenerator.note(chord.notes[i]);
+            var note = this.svgGenerator.note(chord.notes[i], false);
             gridWrap.appendChild(note);
         }
         

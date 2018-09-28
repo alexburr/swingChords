@@ -1,16 +1,17 @@
 /* Vars */
 @colorBlack: black;
+@colorGray: darkslategray;
 @colorWhite: white;
 @borderDotted: 1px dotted @colorBlack;
-@borderSolid: 1px solid @colorBlack;
+@borderSolid: 1px solid @colorGray;
 @fontDefault: "Arial";
 @fontAlt: "Times New Roman";
 @mediaMinWidth: 320px;
 @mediaMaxWidth: 480px;
 
 /* Mixins */
-.strokeLine(@width: 2pt) { 
-    stroke: @colorBlack; 
+.strokeLine(@width: 1pt) { 
+    stroke: @colorGray; 
     stroke-width: @width; 
 }
 .fill(@color: none) {
@@ -32,7 +33,7 @@ body {
 
     @media only screen and (min-device-width: @mediaMinWidth) and (max-device-width: @mediaMaxWidth) {
 		font-size: 12px;
-	}
+    }
 }
 
 h1 {
@@ -64,7 +65,7 @@ h2 {
 
     @media only screen and (min-device-width: @mediaMinWidth) and (max-device-width: @mediaMaxWidth) {
 		max-width: 80vw;
-	}
+    }
 
 }
 .item {
@@ -74,8 +75,8 @@ h2 {
     width: 25em; 
 
     h3 { 
-        font-size: 24pt;
-        font-family: @fontAlt;
+        font-size: 20pt;
+        font-family: @fontDefault;
         margin: 0 0 .5em 0; 
         line-height: 1; 
         text-align: center;
@@ -94,7 +95,7 @@ h2 {
     width: 100%;
     height: 100%;
     .fill();
-    .strokeLine(4pt);
+    .strokeLine(2pt);
 }
 
 .gridLine { 
@@ -115,8 +116,12 @@ h2 {
     }
 
     > text {
-        font-size: 2.25em;
+        font-size: 3em;
         .fill(@colorWhite);
+        
+        &.accidental {
+            font-size: 2.25em;
+        }
     }
 
     &.fret1 { top: .5em; }
@@ -132,10 +137,6 @@ h2 {
     &.string6 { left: -2em; }
     
     &.root {
-        background: @colorBlack; 
-        > text { 
-            font-weight: bold; 
-            font-size: 2.75em; 
-        }
+        background: @colorBlack;
     }
 }

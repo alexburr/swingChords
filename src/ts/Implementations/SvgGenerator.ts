@@ -1,6 +1,7 @@
-import Note from './Models/Note';
+import Note from '../Models/Note';
+import ISvgGenerator from '../Interfaces/ISvgGenerator';
 
-export default class SvgGenerator {        
+export default class SvgGenerator implements ISvgGenerator {      
     private svgns: string = "http://www.w3.org/2000/svg";
 
     // Construction ------------------------------------------------
@@ -12,12 +13,12 @@ export default class SvgGenerator {
         return this.drawGridBox();
     }
 
-    public note(noteObject: Note): Element {
-        return this.drawNote(noteObject);
+    public note(noteObject: Note, isRoot: boolean): Element {
+        return this.drawNote(noteObject, isRoot);
     }
 
     // Private methods ---------------------------------------------
-    private drawNote(noteObject: Note): Element {
+    private drawNote(noteObject: Note, isRoot: boolean): Element {
         var note: Element;
         var dotBox: Element;
         var dotText: Element;
@@ -35,15 +36,21 @@ export default class SvgGenerator {
 
         dotText = document.createElementNS(this.svgns, "text");
         dotText.setAttributeNS(null, "x", "50%");
-        dotText.setAttributeNS(null, "y", "52%");
+        dotText.setAttributeNS(null, "y", "53%");
         dotText.setAttributeNS(null, "text-anchor", "middle");
         dotText.setAttributeNS(null, "dy", ".3em");
-        dotText.innerHTML = noteObject.interval;
+        dotText.innerHTML = isRoot ? "R" : noteObject.interval;
+        
+        if (!isRoot) {
+            if (noteObject.interval.includes("&flat;") || noteObject.interval.includes("&sharp;")) {
+                dotText.setAttributeNS(null, "class", "accidental");
+            }
+        }
 
         dotBox.appendChild(note);
         dotBox.appendChild(dotText);
         
-        if (noteObject.interval == "R") {
+        if (isRoot) {
             dotBox.classList.add("root");
         }
 
@@ -68,7 +75,7 @@ export default class SvgGenerator {
         for (var x = 0; x < 100; x = x + 20) {
             this.drawGridLines(gridBox, x);
         }
-        
+
         return gridBox;
     }
 
