@@ -10,5 +10,4 @@ Requires:
 To compile files:
  - All: `npm run build`
  - Typescript only: `tsc`
- - LESS only: `lessc src/less/styles.less public/css/styles.css`   
-   (or use VSCode Build Task runner)
+ - LESS only: `lessc src/less/styles.less public/css/styles.css`
