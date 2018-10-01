@@ -4,10 +4,11 @@ import ChordGroup from '../Models/ChordGroup';
 import { allChords } from '../Data/allChords';
 import ISwingChordsApp from '../Interfaces/ISwingChordsApp';
 
-export class SwingChordsApp implements ISwingChordsApp {
+// NOTE: This cannot be 'export default' while we are using requirejs
+export class SwingChordsApp implements ISwingChordsApp {    
     body: HTMLBodyElement = document.querySelector("body");
     itemTemplate: any = document.querySelector("#itemTemplate");
-    svgGenerator: SvgGenerator = new SvgGenerator();
+    svgGenerator: SvgGenerator = new SvgGenerator(this);
 
     // Construction ------------------------------------------------
     constructor() {

@@ -1,11 +1,14 @@
 import Note from '../Models/Note';
 import ISvgGenerator from '../Interfaces/ISvgGenerator';
+import ISwingChordsApp from '../Interfaces/ISwingChordsApp';
 
 export default class SvgGenerator implements ISvgGenerator {      
     private svgns: string = "http://www.w3.org/2000/svg";
+    private parentApp: ISwingChordsApp;
 
     // Construction ------------------------------------------------
-    constructor() {
+    constructor(parentApp: ISwingChordsApp) {
+        this.parentApp = parentApp;
     }
 
     // Public methods ----------------------------------------------
