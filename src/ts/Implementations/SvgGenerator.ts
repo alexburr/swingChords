@@ -67,13 +67,6 @@ export default class SvgGenerator implements ISvgGenerator {
             { "width": "100%" },
             { "height": "100%" }
         ]);
-        
-        const grid: Element = this.drawSvgWithAttributes("grid", [
-            { "x": "0" },
-            { "y": "0" }
-        ]);
-
-        gridBox.appendChild(grid);
 
         for (var x = 0; x < 100; x = x + 20) {
             this.drawGridLines(gridBox, x);
@@ -83,18 +76,18 @@ export default class SvgGenerator implements ISvgGenerator {
     }
 
     private drawGridLines(gridBox: Element, counter: number): void {
-        const xValue: string = (counter > 0) ? counter.toString() + "%" : counter.toString();
+        const xValue: string = counter.toString() + "%";
 
         const gridOutline: Element = this.drawSvgWithAttributes("rect", [
             { "class": "gridOutline" },
-            { "x": "0" },
-            { "y": "0" }
+            { "x": "0%" },
+            { "y": "0%" }
         ]);
 
         gridBox.appendChild(gridOutline);
 
         for (var y = 0; y < 100; y = y + 20) {
-            const yValue: string = (y > 0) ? y.toString() + "%" : y.toString();
+            const yValue: string = y.toString() + "%";
 
             const gridLine: Element = this.drawSvgWithAttributes("rect", [
                 { "class": "gridLine" },
