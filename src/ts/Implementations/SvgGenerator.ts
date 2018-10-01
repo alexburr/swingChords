@@ -89,7 +89,7 @@ export default class SvgGenerator implements ISvgGenerator {
         return gridLine;
     }
 
-    private drawGridLines(gridBox: Element, counter: number): void {            
+    private drawGridLines(gridBox: Element, counter: number): void {
         var xValue: string = (counter > 0) ? counter.toString() + "%" : counter.toString();
 
         gridBox.appendChild(this.drawGridLine("grid", "0", "0"));

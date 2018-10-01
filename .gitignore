@@ -57,8 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
-# Output of Typescript compiler
-public/js/app.js
-
-# Output of LESS transpiler
+# Output of Typescript compiler, LESS transpiler & CPS
+public/js/
 public/css/
