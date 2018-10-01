@@ -16,55 +16,52 @@ export class SwingChordsApp implements ISwingChordsApp {
 
     // Public methods ----------------------------------------------
     public drawChordGroups(chordGroups: ChordGroup[]): void {
-        for (var i = 0; i < chordGroups.length; i++) {
-            this.drawChordGroup(chordGroups[i]);
-        }
+        chordGroups.forEach((chordGroup) => {
+            this.drawChordGroup(chordGroup);
+        });
     }
 
     // Private methods ---------------------------------------------
     private drawHeader(text: string): void {
-        var header: HTMLHeadingElement = document.createElement("h2");
-        var headerText: Text = document.createTextNode(text); 
+        const header: HTMLHeadingElement = document.createElement("h2");
+        const headerText: Text = document.createTextNode(text); 
         
         header.appendChild(headerText);
         this.body.appendChild(header);
     }
 
     private drawChord(chord: Chord, container: HTMLDivElement): void {
-        var item: any;
-        var gridWrap: any;            
-        var gridBox = this.svgGenerator.gridBox();
+        const gridBox = this.svgGenerator.gridBox();
+        const item: Element = document.importNode(this.itemTemplate.content, true);
+        const gridWrap: Element = item.querySelector(".gridWrap");
         
-        item = document.importNode(this.itemTemplate.content, true);
         item.querySelector("h3").innerHTML = chord.name;
-
-        gridWrap = item.querySelector(".gridWrap");
         gridWrap.appendChild(gridBox);
         
         if (chord.root !== null) {
-            var root = this.svgGenerator.note(chord.root, true);
+            const root: Element = this.svgGenerator.note(chord.root, true);
             gridWrap.appendChild(root);
         }        
 
-        for (var i = 0; i < chord.notes.length; i++) {
-            var note = this.svgGenerator.note(chord.notes[i], false);
-            gridWrap.appendChild(note);
-        }
+        chord.notes.forEach((note) => {
+            const noteSvg = this.svgGenerator.note(note, false);
+            gridWrap.appendChild(noteSvg);
+        });
         
         container.appendChild(item);
     }
 
     private drawChords(chordsArray: Chord[], container: HTMLDivElement): void {
-        for (var i = 0; i < chordsArray.length; i++) {
-            this.drawChord(chordsArray[i], container);
-        }
+        chordsArray.forEach((chord) => {
+            this.drawChord(chord, container);
+        });
     }
     
     private drawChordGroup(chordGroup: ChordGroup): void {
-        var container: HTMLDivElement = document.createElement("div");
-        
-        this.drawHeader(chordGroup.name);            
+        const container: HTMLDivElement = document.createElement("div");    
         container.classList.add("contentWrap");
+        
+        this.drawHeader(chordGroup.name);
         this.body.appendChild(container);
         this.drawChords(chordGroup.chords, container);
     }

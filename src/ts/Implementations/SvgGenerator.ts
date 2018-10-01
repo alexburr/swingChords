@@ -18,57 +18,60 @@ export default class SvgGenerator implements ISvgGenerator {
     }
 
     // Private methods ---------------------------------------------
-    private drawNote(noteObject: Note, isRoot: boolean): Element {
-        var note: Element;
-        var dotBox: Element;
-        var dotText: Element;
-        
-        dotBox = document.createElementNS(this.svgns, "svg");
-        dotBox.setAttributeNS(null, "class", "dotBox");
-        dotBox.classList.add("string" + noteObject.string);
-        dotBox.classList.add("fret" + noteObject.fret);
+    private drawSvgWithAttributes(elementType: string, attributes: any[] = null): Element {
+        const svgElement: Element = document.createElementNS(this.svgns, elementType);
 
-        note = document.createElementNS(this.svgns, "circle");
-        note.setAttributeNS(null, "class", "dot");
-        note.setAttributeNS(null, "cx", "50%");
-        note.setAttributeNS(null, "cy", "50%");
-        note.setAttributeNS(null, "r", "50%");
-
-        dotText = document.createElementNS(this.svgns, "text");
-        dotText.setAttributeNS(null, "x", "50%");
-        dotText.setAttributeNS(null, "y", "53%");
-        dotText.setAttributeNS(null, "text-anchor", "middle");
-        dotText.setAttributeNS(null, "dy", ".3em");
-        dotText.innerHTML = isRoot ? "R" : noteObject.interval;
-        
-        if (!isRoot) {
-            if (noteObject.interval.includes("&flat;") || noteObject.interval.includes("&sharp;")) {
-                dotText.setAttributeNS(null, "class", "accidental");
-            }
+        if (attributes !== null) {
+            attributes.forEach((attribute) => {
+                var attributeName: string = Object.keys(attribute)[0];
+                var attributeValue: string = attribute[attributeName];
+                svgElement.setAttributeNS(null, attributeName, attributeValue);
+            });
         }
+
+        return svgElement;
+    }
+
+    private drawNote(noteObject: Note, isRoot: boolean): Element {
+        const dotBoxClass = "dotBox string" + noteObject.string + " fret" + noteObject.fret;
+        const dotBox: Element = this.drawSvgWithAttributes("svg", [
+            { "class": (isRoot) ? dotBoxClass + " root" : dotBoxClass }
+        ]);
+
+        const note: Element = this.drawSvgWithAttributes("circle", [
+            { "class": "dot" },
+            { "cx": "50%" },
+            { "cy": "50%" },
+            { "r": "50%" }
+        ]);
+
+        const dotTextClass = (!isRoot && (noteObject.interval.includes("&flat;") || noteObject.interval.includes("&sharp;"))) ? "accidental" : "";
+        const dotText: Element = this.drawSvgWithAttributes("text", [
+            { "class": dotTextClass },
+            { "x": "50%" },
+            { "y": "53%" },
+            { "text-anchor": "middle" },
+            { "dy": ".3em" }
+        ]);
+        dotText.innerHTML = isRoot ? "R" : noteObject.interval;
 
         dotBox.appendChild(note);
         dotBox.appendChild(dotText);
-        
-        if (isRoot) {
-            dotBox.classList.add("root");
-        }
 
         return dotBox;
     }
 
     private drawGridBox(): Element {
-        var gridBox: Element;
-        var grid: Element;
-
-        gridBox = document.createElementNS(this.svgns, "svg");     
-        gridBox.setAttributeNS(null, "class", "gridBox");            
-        gridBox.setAttributeNS(null, "width", "100%");            
-        gridBox.setAttributeNS(null, "height", "100%");
+        const gridBox: Element = this.drawSvgWithAttributes("svg", [
+            { "class": "gridBox" },
+            { "width": "100%" },
+            { "height": "100%" }
+        ]);
         
-        grid = document.createElementNS(this.svgns, "grid");
-        grid.setAttributeNS(null, "x", "0");
-        grid.setAttributeNS(null, "y", "0");
+        const grid: Element = this.drawSvgWithAttributes("grid", [
+            { "x": "0" },
+            { "y": "0" }
+        ]);
 
         gridBox.appendChild(grid);
 
@@ -79,24 +82,26 @@ export default class SvgGenerator implements ISvgGenerator {
         return gridBox;
     }
 
-    private drawGridLine(classValue: string, xValue: string, yValue: string): Element {
-        var gridLine: Element; 
-        
-        gridLine = document.createElementNS(this.svgns, "rect");
-        gridLine.setAttributeNS(null, "class", classValue);
-        gridLine.setAttributeNS(null, "x", xValue);
-        gridLine.setAttributeNS(null, "y", yValue);
-        return gridLine;
-    }
-
     private drawGridLines(gridBox: Element, counter: number): void {
-        var xValue: string = (counter > 0) ? counter.toString() + "%" : counter.toString();
+        const xValue: string = (counter > 0) ? counter.toString() + "%" : counter.toString();
 
-        gridBox.appendChild(this.drawGridLine("grid", "0", "0"));
+        const gridOutline: Element = this.drawSvgWithAttributes("rect", [
+            { "class": "gridOutline" },
+            { "x": "0" },
+            { "y": "0" }
+        ]);
+
+        gridBox.appendChild(gridOutline);
 
         for (var y = 0; y < 100; y = y + 20) {
-            var yValue: string = (y > 0) ? y.toString() + "%" : y.toString();
-            var gridLine: Element = this.drawGridLine("gridLine", xValue, yValue);
+            const yValue: string = (y > 0) ? y.toString() + "%" : y.toString();
+
+            const gridLine: Element = this.drawSvgWithAttributes("rect", [
+                { "class": "gridLine" },
+                { "x": xValue },
+                { "y": yValue }
+            ]);
+
             gridBox.appendChild(gridLine);
         }
     }
