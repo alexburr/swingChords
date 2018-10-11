@@ -1,5 +1,6 @@
 # swingChords
-Render swing chord voicing diagrams
+Render swing chord voicing diagrams   
+View it at: https://alexburr.github.io/apps/swingChords/index.html
 
 ## Compiling/running
 Requires: 

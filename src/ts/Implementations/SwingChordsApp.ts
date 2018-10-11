@@ -9,15 +9,17 @@ export class SwingChordsApp implements ISwingChordsApp {
     body: HTMLBodyElement = document.querySelector("body");
     itemTemplate: any = document.querySelector("#itemTemplate");
     svgGenerator: SvgGenerator = new SvgGenerator(this);
+    chordGroups: ChordGroup[] = allChords;
 
     // Construction ------------------------------------------------
     constructor() {
-        this.drawChordGroups(allChords);
+        this.drawChordGroups();
+        window["SwingChordsApp"] = this;
     }
 
     // Public methods ----------------------------------------------
-    public drawChordGroups(chordGroups: ChordGroup[]): void {
-        chordGroups.forEach((chordGroup) => {
+    public drawChordGroups(): void {
+        this.chordGroups.forEach((chordGroup) => {
             this.drawChordGroup(chordGroup);
         });
     }
