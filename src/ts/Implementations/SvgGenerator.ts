@@ -48,7 +48,8 @@ export default class SvgGenerator implements ISvgGenerator {
             { "r": "50%" }
         ]);
 
-        const dotTextClass = (!isRoot && (noteObject.interval.includes("&flat;") || noteObject.interval.includes("&sharp;"))) ? "accidental" : "";
+        const isAccidental = !isRoot ? noteObject.interval.includes("-") || noteObject.interval.includes("+") : false;
+        const dotTextClass = isAccidental ? "accidental" : "";
         const dotText: Element = this.createSvgWithAttributes("text", [
             { "class": dotTextClass },
             { "x": "50%" },
@@ -56,6 +57,12 @@ export default class SvgGenerator implements ISvgGenerator {
             { "text-anchor": "middle" },
             { "dy": ".3em" }
         ]);
+
+        if (isAccidental) {
+            noteObject.interval = noteObject.interval.replace(/-/gi,"&flat;");
+            noteObject.interval = noteObject.interval.replace(/\+/gi,"&sharp;");
+        }
+
         dotText.innerHTML = isRoot ? "R" : noteObject.interval;
 
         dotBox.appendChild(note);

@@ -19,26 +19,25 @@ body {
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 3.5em;
     font-family: @fontAlt;
+    font-weight: 300;
     margin: 0 0 .5em 0; 
     line-height: 1; 
     text-align: center;
 
     @media (max-width: 480px) {
         margin: 0;
-
-        > small { 
-            display: block;
-        }
     }
 }
 
 h2 {
-    border-bottom: @borderSolid;
-    border-top: @borderSolid;
+    background-color: @colorLightGray;
+    // border-bottom: @borderSolid;
+    // border-top: @borderSolid;
     font-size: 1.5em;
     font-style: italic;
+    font-weight: normal;
     clear: both;
     line-height: 1;
     margin: 1em 5vw;
@@ -66,12 +65,13 @@ h2 {
 
     @media (max-width: 480px) {
         margin: 1em 3vw; 
-        width: 23vw;
+        width: 35vw;
     }
 
     h3 { 
         font-size: 1.66em;
         font-family: @fontDefault;
+        font-weight: normal;
         margin: 0 0 .5em 0; 
         line-height: 1; 
         text-align: center;
@@ -94,8 +94,8 @@ h2 {
     width: 16vw; 
 
     @media (max-width: 480px) {
-        height: 23vw;
-        width: 23vw;
+        height: 35vw;
+        width: 35vw;
     }
 }
 
