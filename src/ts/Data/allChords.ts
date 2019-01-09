@@ -102,7 +102,7 @@ export const allChords: ChordGroup[] = [
                 name: "maj", 
                 root: { string: 6, fret: 2 },
                 notes: [
-                    { string: 4, fret: 4, interval: "5" },
+                    { string: 4, fret: 4, interval: "R" },
                     { string: 3, fret: 3, interval: "3" }
                 ]
             },
