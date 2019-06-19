@@ -1,14 +1,15 @@
 import Note from '../Models/Note';
 import ISvgGenerator from '../Interfaces/ISvgGenerator';
 import ISwingChordsApp from '../Interfaces/ISwingChordsApp';
+import { ImprovType } from '../Models/ImprovType';
 
 export default class SvgGenerator implements ISvgGenerator {      
     private svgns: string = "http://www.w3.org/2000/svg";
-    private parentApp: ISwingChordsApp;
+    //private parentApp: ISwingChordsApp;
 
     // Construction ------------------------------------------------
     constructor(parentApp: ISwingChordsApp) {
-        this.parentApp = parentApp;
+        //this.parentApp = parentApp;
     }
 
     // Public methods ----------------------------------------------
@@ -36,20 +37,30 @@ export default class SvgGenerator implements ISvgGenerator {
     }
 
     private drawNote(noteObject: Note, isRoot: boolean): Element {
+        
+        const isAccidental = !isRoot ? noteObject.interval.includes("-") || noteObject.interval.includes("+") : false;
+        const isAddedRoot = (noteObject.improvType != null && noteObject.improvType == ImprovType.AddedRoot);
+        const isAddedChordTone = (noteObject.improvType != null && noteObject.improvType == ImprovType.AddedChordTone);
+        const isOrnament = (noteObject.improvType != null && noteObject.improvType == ImprovType.Ornament);
+
         const dotBoxClass = "dotBox string" + noteObject.string + " fret" + noteObject.fret;
         const dotBox: Element = this.createSvgWithAttributes("svg", [
-            { "class": (isRoot) ? dotBoxClass + " root" : dotBoxClass }
+            { "class": isRoot || isAddedRoot ? dotBoxClass + " root" : dotBoxClass }
         ]);
 
+        const dotBaseClass: string = (isAddedChordTone || isOrnament) ? "smallDot" : "dot";
         const note: Element = this.createSvgWithAttributes("circle", [
-            { "class": "dot" },
+            { "class": isOrnament ? dotBaseClass + " empty" : dotBaseClass },
             { "cx": "50%" },
             { "cy": "50%" },
             { "r": "50%" }
         ]);
 
-        const isAccidental = !isRoot ? noteObject.interval.includes("-") || noteObject.interval.includes("+") : false;
-        const dotTextClass = isAccidental ? "accidental" : "";
+        const dotTextBaseClass = (isAddedChordTone || isOrnament) ? "smallText" : " ";
+        let dotTextClass = isAccidental ? dotTextBaseClass + " accidental" : dotTextBaseClass;
+        if (isOrnament) {
+            dotTextClass += " inverse";
+        }
         const dotText: Element = this.createSvgWithAttributes("text", [
             { "class": dotTextClass },
             { "x": "50%" },

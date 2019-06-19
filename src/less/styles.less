@@ -84,6 +84,24 @@ h2 {
             font-size: 1em;
         }
     }
+
+    h4 { 
+        font-size: 1.2em;
+        font-family: @fontDefault;
+        font-style: italic;
+        font-weight: normal;
+        margin: 0 0 .5em 0; 
+        line-height: 1; 
+        text-align: center;
+
+        @media (max-width: 480px) {
+            font-size: 1em;
+        }
+
+        @media (max-width: 300px) {
+            font-size: em;
+        }
+    }
 }
 
 .gridWrap { 
@@ -132,9 +150,36 @@ h2 {
         stroke: none;
     }
 
+    > .smallDot {
+        .fill(@colorDarkGray);
+        stroke: @colorDarkGray;
+        r: 35%;
+
+        @media (max-width: 640px) {
+            r: 50%;
+        }
+
+        // @media (max-width: 480px) {
+        //     font-size: 10pt;
+        // }
+
+        // @media (max-width: 300px) {
+        //     font-size: 8pt;
+        // }
+
+        &.empty {
+            .fill(@colorWhite);
+            stroke: @colorBlack;
+        }
+    }
+
     > text {
         font-size: 18pt;
         .fill(@colorWhite);
+
+        &.inverse {
+            .fill(@colorBlack);
+        }
 
         @media (max-width: 800px) {
             font-size: 12pt;
@@ -170,6 +215,10 @@ h2 {
             @media (max-width: 300px) {
                 font-size: 6pt;
             }
+        }
+
+        &.smallText  {
+            font-size: 85%;
         }
     }
 
