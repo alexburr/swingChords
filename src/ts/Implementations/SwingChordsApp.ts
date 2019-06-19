@@ -29,7 +29,7 @@ export class SwingChordsApp implements ISwingChordsApp {
     }
 
     public drawImprovShapes(): void {
-        this.drawHeader("Improv Shapes", "improvShapes");        
+        this.drawHeader("Improv Shapes & Scales", "improvShapes");        
         const container: HTMLDivElement = document.createElement("div");
         container.classList.add("contentWrap");
         this.improvShapes.forEach((improvShape) => {
@@ -92,7 +92,9 @@ export class SwingChordsApp implements ISwingChordsApp {
         const item: Element = document.importNode(this.itemTemplate.content, true);
         const gridWrap: Element = item.querySelector(".gridWrap");
         
-        item.querySelector("h4").innerHTML = improvShape.name;
+        item.querySelector("h4").innerHTML = improvShape.name;        
+        item.querySelector("h5").innerHTML = (improvShape.caption != null) ? improvShape.caption : "&nbsp;";
+
         gridWrap.appendChild(gridBox);
 
         if (improvShape.root !== null) {
